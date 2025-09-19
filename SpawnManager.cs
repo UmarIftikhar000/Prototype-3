@@ -3,6 +3,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 
 {
+    private PlayerController spawnManagerScript;
     public GameObject obstaclePrefab;
     public float repeatDelay = 2;
     public float startDelay = 2;
@@ -10,6 +11,7 @@ public class SpawnManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        spawnManagerScript = GameObject.Find("Player").GetComponent<PlayerController>();
         InvokeRepeating("SpawnRandom", startDelay, repeatDelay);
     }
 
@@ -20,6 +22,11 @@ public class SpawnManager : MonoBehaviour
     }
     void SpawnRandom()
     {
-        Instantiate(obstaclePrefab, spawnPose, obstaclePrefab.transform.rotation);
+        if (spawnManagerScript.gameOver == false)
+        {
+            Instantiate(obstaclePrefab, spawnPose, obstaclePrefab.transform.rotation);
+
+        }
+        
     }
 }
